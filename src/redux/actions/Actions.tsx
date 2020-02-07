@@ -1,26 +1,12 @@
 /*
  * action types
  */
-export const ADD_TODO = "ADD_TODO";
-export const TOGGLE_TODO = "TOGGLE_TODO";
-export const SET_VISIBILITY_FILTER = "SET_VISIBILITY_FILTER";
-/*
- * other constants
- */
-export const VisibilityFilters = {
-  SHOW_ALL: "SHOW_ALL",
-  SHOW_COMPLETED: "SHOW_COMPLETED",
-  SHOW_ACTIVE: "SHOW_ACTIVE"
-};
-/*
- * action creators
- */
-export function addTodo(text:string) {
-  return { type: ADD_TODO, text };
+export const GENERATE_FIELD = "GENERATE_FIELD";
+export const SET_FOUNDATION = "SET_FOUNDATION"
+
+
+export function setFoundation(number:string) {
+  return { type: SET_FOUNDATION, number };
 }
-export function toggleTodo(index:number) {
-  return { type: TOGGLE_TODO, index };
-}
-export function setVisibilityFilter(filter:string) {
-  return { type: SET_VISIBILITY_FILTER, filter };
-}
+
+
