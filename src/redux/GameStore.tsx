@@ -1,3 +1,3 @@
-import { createStore } from "redux";
+export default class SomeClass {
 
-let gameProcessing = createStore();
+}
