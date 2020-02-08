@@ -7,37 +7,41 @@ import Select from "@material-ui/core/Select";
 import Button from "@material-ui/core/Button";
 import {connect} from 'react-redux';
 import { Dispatch } from "redux";
+import Field from '../Field/Field';
 
 
 interface ISettingState {
   open: boolean;
+  isFiledVisible:boolean;
 }
 
 //TODO fix any
 interface IFoundation {
     foundation:number,
     onSetFoundation:any,
-    onGenerateField:any
+    onGenerateField:any,
 }
 
 class SettingPage extends React.Component<IFoundation,{}> {
 
     state: ISettingState = {
-                   open: false
+        open: false,
+        isFiledVisible: false,
     };
 
-    //  useStyles = makeStyles(theme => ({
-                //    button: {
-                //      display: "block",
-                //      marginTop: theme.spacing(2)
-                //    },
-                //    formControl: {
-                //      margin: theme.spacing(1),
-                //      minWidth: 120
-                //    }
-                //  }));
+    // //TODO fix with type
+    //  useStyles:any = makeStyles(theme => ({
+    //                button: {
+    //                  display: "block",
+    //                  marginTop: theme.spacing(2)
+    //                },
+    //                formControl: {
+    //                  margin: theme.spacing(1),
+    //                  minWidth: 120
+    //                }
+    //              }));
 
-                //  classes = this.useStyles();
+    //              classes = this.useStyles();
 
     setFoundation(value: number): void {
         this.setState(state=> {
@@ -58,6 +62,15 @@ class SettingPage extends React.Component<IFoundation,{}> {
       this.props.onSetFoundation(event.target.value)
         this.setFoundation(event.target.value);
     };
+
+    startGame = () =>{
+      console.log(67)
+      this.setState(state=>{
+        return {
+          isFiledVisible: true
+        }
+      })
+    }
 
     handleClose = () => {
         this.setOpen(false);
@@ -103,11 +116,12 @@ class SettingPage extends React.Component<IFoundation,{}> {
                 <Button
                   variant="contained"
                   color="primary"
-                  onClick={() => this.props.onSetFoundation}
+                  onClick={() =>this.startGame()}
                 >
                   Start Game
                 </Button>
             </div>
+            {this.state.isFiledVisible ? <Field/> : null}
         </div>
         );
     }

@@ -4,30 +4,16 @@ interface IAppStore {
 
 const initialState:IAppStore = {
     foundation: 2,
-    
 }
 
-export default function rootReducer(state = initialState, action:any){
+export default function foundationStore(state = initialState, action:any):IAppStore{
 
     switch(action.type){
         case 'SET_FOUNDATION':
             return {
-              foundation: action.foundation
+              foundation: action.foundation,
             }
+        default:
+          return state
     }
-    return state;
-}
-
-
-
-function generateField(foundation:number): any[][]{
-  let field:any[][] = [];
-
-  for(var i = 0; i <foundation; i++ )
-  {
-    field.push(new Array(foundation));
-  }
-
-  return field;
-
 }
