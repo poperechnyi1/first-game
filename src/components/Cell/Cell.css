@@ -1,0 +1,16 @@
+.Cell button{
+    width:20px;
+    height: 20px;
+    background-color:#ccffcc;
+    padding: 0;
+    margin: 2px;
+    min-width: 20px;
+}
+
+.Cell button:hover{
+    background-color:#000;
+}
+
+.row{
+    display: flex;
+}
