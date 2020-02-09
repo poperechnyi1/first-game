@@ -8,18 +8,12 @@ import Button from "@material-ui/core/Button";
 import {connect} from 'react-redux';
 import { Dispatch } from "redux";
 import Field from '../Field/Field';
+import {IFoundation} from '../../interfaces/Foundation';
 
 
 interface ISettingState {
   open: boolean;
   isFiledVisible:boolean;
-}
-
-//TODO fix any
-interface IFoundation {
-    foundation:number,
-    onSetFoundation:any,
-    onGenerateField:any,
 }
 
 class SettingPage extends React.Component<IFoundation,{}> {
@@ -133,7 +127,7 @@ class SettingPage extends React.Component<IFoundation,{}> {
 
 function mapStateToProps(state:any){
     return {
-        foundation: state.foundation
+        foundation: state.foundationStore.foundation
     }
 }
 
