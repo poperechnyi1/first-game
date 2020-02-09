@@ -7,7 +7,7 @@ export default class Cell extends React.Component {
         return (
             <div>
             <Button>
-                Victory
+                Cell
             </Button>
             </div>
         )

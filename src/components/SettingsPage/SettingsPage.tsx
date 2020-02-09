@@ -81,14 +81,16 @@ class SettingPage extends React.Component<IFoundation,{}> {
     };
 
 
+
     render() {
         console.log('STORE ', this.props)
         return (
         <div>
-            <div>
 
                 {/* //FIX problem with classes */}
                 {/* this.classes.formControl */}
+                {!this.state.isFiledVisible ? <div>
+        <div>
                 <FormControl>
                   <InputLabel id="demo-controlled-open-select-label">
                     Generate field
@@ -121,7 +123,8 @@ class SettingPage extends React.Component<IFoundation,{}> {
                   Start Game
                 </Button>
             </div>
-            {this.state.isFiledVisible ? <Field/> : null}
+            </div> : <Field/>}
+                
         </div>
         );
     }
