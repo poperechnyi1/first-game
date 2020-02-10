@@ -1,17 +1,16 @@
 import React from "react";
 import { connect } from "react-redux";
 
-
 class InformationTable extends React.Component<
   {
-    isFirstPlayerTurn:boolean;
+    isFirstPlayerTurn: boolean;
   },
   {}
 > {
   render() {
     return (
       <div>
-        <div>Turn: {this.props.isFirstPlayerTurn ? 'Player1' : 'Player2'}</div>
+        <div>Turn: {this.props.isFirstPlayerTurn ? "Player1" : "Player2"}</div>
         <div>Player1: NaN</div>
         <div>Player2: NaN</div>
       </div>

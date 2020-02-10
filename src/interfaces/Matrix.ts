@@ -5,6 +5,6 @@ export interface ICell {
   takenBy: number;
 }
 
-// export interface IMatrix {
-//   matrix: Array<Array<ICell>>;
-// }
+export interface IMatrix {
+  matrix: Array<Array<ICell>>;
+}

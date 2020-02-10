@@ -3,9 +3,17 @@ import Button from "@material-ui/core/Button";
 import "./Cell.css";
 import { connect } from "react-redux";
 import { ITurnStore } from "../../interfaces/Turn";
+import GamePlayHandler from "../../services/GamePlayHandler";
+import { ICell } from "../../interfaces/Matrix";
 
 class Cell extends React.Component<
-  ITurnStore,
+  {
+    vPointer: number;
+    hPointer: number;
+    isFirstPlayerTurn: boolean;
+    switchTurn: any;
+    matrix: Array<Array<ICell>>;
+  },
   {
     isHovered: boolean;
     buttonClass: string;
@@ -13,7 +21,13 @@ class Cell extends React.Component<
     playerClicked: number;
   }
 > {
-  constructor(props: ITurnStore) {
+  constructor(props: {
+    vPointer: number;
+    hPointer: number;
+    isFirstPlayerTurn: boolean;
+    switchTurn: any;
+    matrix: Array<Array<ICell>>;
+  }) {
     super(props);
     this.handleMouseEnter = this.handleMouseEnter.bind(this);
     this.handleMouseLeave = this.handleMouseLeave.bind(this);
@@ -48,16 +62,27 @@ class Cell extends React.Component<
   }
 
   handleClick(): void {
-    console.log("CLICK");
-    if (!this.state.isButtonClicked) {
-        this.setState(state=>{
-            return {
-              isButtonClicked:true,
-            };
-        })
-        this.props.switchTurn();
-    }
+    console.log("Vertical ", this.props.vPointer);
+    console.log("Horizontal ", this.props.hPointer);
+    const GamePlayInstance = new GamePlayHandler();
+    console.log(
+      68,
+      GamePlayInstance.takeCell(
+        this.props.matrix,
+        this.props.isFirstPlayerTurn,
+        this.props.hPointer,
+        this.props.vPointer
+      )
+    );
 
+    if (!this.state.isButtonClicked) {
+      this.setState(state => {
+        return {
+          isButtonClicked: true
+        };
+      });
+      this.props.switchTurn();
+    }
   }
 
   render() {
@@ -76,7 +101,8 @@ class Cell extends React.Component<
 
 function mapStateToProps(state: any) {
   return {
-    isFirstPlayerTurn: state.turnStore.isFirstPlayerTurn
+    isFirstPlayerTurn: state.turnStore.isFirstPlayerTurn,
+    matrix: state.matrixStore.matrix
   };
 }
 
