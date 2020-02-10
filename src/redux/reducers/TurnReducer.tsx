@@ -5,15 +5,15 @@ const initialState: ITurnState = {
 };
 
 export default function turnStore(
-                 state = initialState,
-                 action: any
-               ): ITurnState {
-                 switch (action.type) {
-                   case "SWITCH_PLAYER_TURN":
-                     return {
-                       isFirstPlayerTurn: !state.isFirstPlayerTurn
-                     };
-                   default:
-                     return state;
-                 }
-               }
+  state = initialState,
+  action: any
+): ITurnState {
+  switch (action.type) {
+    case "SWITCH_PLAYER_TURN":
+      return {
+        isFirstPlayerTurn: !state.isFirstPlayerTurn
+      };
+    default:
+      return state;
+  }
+}

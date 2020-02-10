@@ -9,6 +9,7 @@ import {connect} from 'react-redux';
 import { Dispatch } from "redux";
 import Field from '../Field/Field';
 import {IFoundation} from '../../interfaces/Foundation';
+import InformationTable from '../InformationTable/InformationTable';
 
 
 interface ISettingState {
@@ -52,13 +53,11 @@ class SettingPage extends React.Component<IFoundation,{}> {
 
     //TODO remove any
     handleChange = (event: any) => {
-      console.log(58, event.target.value)
       this.props.onSetFoundation(event.target.value)
       this.setFoundation(event.target.value);
     };
 
     startGame = () =>{
-      console.log(67)
       this.setState(state=>{
         return {
           isFiledVisible: true
@@ -79,47 +78,52 @@ class SettingPage extends React.Component<IFoundation,{}> {
     render() {
         console.log('STORE ', this.props)
         return (
-        <div>
-
-                {/* //FIX problem with classes */}
-                {/* this.classes.formControl */}
-                {!this.state.isFiledVisible ? <div>
-        <div>
-                <FormControl>
-                  <InputLabel id="demo-controlled-open-select-label">
-                    Generate field
-                  </InputLabel>
-                  <Select
-                    labelId="demo-controlled-open-select-label"
-                    id="demo-controlled-open-select"
-                    open={this.state.open}
-                    onClose={this.handleClose}
-                    onOpen={this.handleOpen}
-                    value={this.props.foundation}
-                    onChange={this.handleChange}
+          <div>
+            {/* //FIX problem with classes */}
+            {/* this.classes.formControl */}
+            {!this.state.isFiledVisible ? (
+              <div>
+                <div>
+                  <FormControl>
+                    <InputLabel id="demo-controlled-open-select-label">
+                      Generate field
+                    </InputLabel>
+                    <Select
+                      labelId="demo-controlled-open-select-label"
+                      id="demo-controlled-open-select"
+                      open={this.state.open}
+                      onClose={this.handleClose}
+                      onOpen={this.handleOpen}
+                      value={this.props.foundation}
+                      onChange={this.handleChange}
+                    >
+                      <MenuItem value={2}>2</MenuItem>
+                      <MenuItem value={3}>3</MenuItem>
+                      <MenuItem value={4}>4</MenuItem>
+                      <MenuItem value={5}>5</MenuItem>
+                      <MenuItem value={6}>6</MenuItem>
+                      <MenuItem value={7}>7</MenuItem>
+                      <MenuItem value={8}>8</MenuItem>
+                    </Select>
+                  </FormControl>
+                </div>
+                <div>
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    onClick={() => this.startGame()}
                   >
-                    <MenuItem value={2}>2</MenuItem>
-                    <MenuItem value={3}>3</MenuItem>
-                    <MenuItem value={4}>4</MenuItem>
-                    <MenuItem value={5}>5</MenuItem>
-                    <MenuItem value={6}>6</MenuItem>
-                    <MenuItem value={7}>7</MenuItem>
-                    <MenuItem value={8}>8</MenuItem>
-                  </Select>
-                </FormControl>
-            </div>
-            <div>
-                <Button
-                  variant="contained"
-                  color="primary"
-                  onClick={() =>this.startGame()}
-                >
-                  Start Game
-                </Button>
-            </div>
-            </div> : <Field/>}
-
-        </div>
+                    Start Game
+                  </Button>
+                </div>
+              </div>
+            ) : (
+              <div>
+                <Field />
+                <InformationTable />
+              </div>
+            )}
+          </div>
         );
     }
 }
