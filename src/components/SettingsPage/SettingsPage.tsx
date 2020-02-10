@@ -54,7 +54,7 @@ class SettingPage extends React.Component<IFoundation,{}> {
     handleChange = (event: any) => {
       console.log(58, event.target.value)
       this.props.onSetFoundation(event.target.value)
-        this.setFoundation(event.target.value);
+      this.setFoundation(event.target.value);
     };
 
     startGame = () =>{
@@ -118,7 +118,7 @@ class SettingPage extends React.Component<IFoundation,{}> {
                 </Button>
             </div>
             </div> : <Field/>}
-                
+
         </div>
         );
     }

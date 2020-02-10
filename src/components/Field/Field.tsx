@@ -1,6 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import Cell from '../Cell/Cell';
+import './Field.css';
 
 class Field extends React.Component<{foundation:number},{}> {
 
@@ -22,9 +23,7 @@ class Field extends React.Component<{foundation:number},{}> {
     }
 
     render(){
-        return (
-            <div>{this.generateField()}</div>
-        );
+        return <div className="Field">{this.generateField()}</div>;
     }
 
 }
