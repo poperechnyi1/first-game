@@ -32,12 +32,73 @@ export default class GamePlayHandler {
       secondSequences.push(sequenceSet);
     }
 
-    console.log(32, this.findNearbyCells(matrix, hPointer, vPointer));
+    if (firstSequences.length > 0 && secondSequences.length > 0) {
+      console.log("####################");
+      const nearByCells = this.findNearbyCells(matrix, hPointer, vPointer);
+      console.log("Nearby cells", nearByCells);
+      this.addCellToAccordingSequences(
+        isFirstPlayer,
+        nearByCells,
+        firstSequences,
+        secondSequences,
+        hPointer,
+        vPointer
+      );
+    }
 
     return {
       firstSequences,
       secondSequences
     };
+  }
+
+  addCellToAccordingSequences(
+    isFirstPlayer: boolean,
+    nearByCells: any,
+    firstSequences: any[],
+    secondSequences: any[],
+    hPointer: number,
+    vPointer: number
+  ) {
+    let entries: number[] = [];
+    for (const item in nearByCells) {
+      if (nearByCells[item] && isFirstPlayer) {
+        entries = this.iterateSequence(
+          firstSequences,
+          `${nearByCells[item].hPointer},${nearByCells[item].vPointer}`
+        );
+      }
+
+      if (nearByCells[item] && !isFirstPlayer) {
+        entries = this.iterateSequence(
+          secondSequences,
+          `${nearByCells[item].hPointer},${nearByCells[item].vPointer}`
+        );
+      }
+    }
+
+    //TODO handle situation when nearby cells have a lot of entries in different subsequent
+    if (firstSequences[entries[0]] && isFirstPlayer) {
+      firstSequences[0].add(`${hPointer},${vPointer}`);
+    }
+
+    if (secondSequences[entries[0]] && !isFirstPlayer) {
+      secondSequences[0].add(`${hPointer},${vPointer}`);
+    }
+    console.log("INDEX OF SUBSEQUENCE", entries);
+    console.log("SEQUENCE 1 ", firstSequences);
+    console.log("SEQUENCE 2 ", secondSequences);
+  }
+
+  iterateSequence(sequences: any[], cellPointer: string) {
+    let indexes: number[] = [];
+    sequences.forEach((element, index) => {
+      if (element.has(cellPointer)) {
+        indexes.push(index);
+      }
+    });
+
+    return indexes;
   }
 
   findNearbyCells(
@@ -54,14 +115,16 @@ export default class GamePlayHandler {
     //find nearby cells by horizontal
     if (hPointer <= matrix.length - 1 && hPointer > 0) {
       cellTop = matrix[hPointer - 1][vPointer];
-    } else if (hPointer < matrix.length - 1 && hPointer >= 0) {
+    }
+    if (hPointer < matrix.length - 1 && hPointer >= 0) {
       cellBottom = matrix[hPointer + 1][vPointer];
     }
 
     //find nearby cells by vertical
     if (vPointer <= matrix.length - 1 && vPointer > 0) {
       cellLeft = matrix[hPointer][vPointer - 1];
-    } else if (vPointer < matrix.length - 1 && vPointer >= 0) {
+    }
+    if (vPointer < matrix.length - 1 && vPointer >= 0) {
       cellRight = matrix[hPointer][vPointer + 1];
     }
 
