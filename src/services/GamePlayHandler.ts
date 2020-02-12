@@ -24,8 +24,9 @@ export default class GamePlayHandler {
     let secondSequences = secondPlayerSequences;
 
     const nearByCells = this.findNearbyCells(matrix, hPointer, vPointer);
-    console.log("Nearby cells", nearByCells);
-    this.addCellToAccordingSequences(
+    // console.log("Nearby cells", nearByCells);
+
+    let addedToAccordingSequences = this.addCellToAccordingSequences(
       isFirstPlayer,
       nearByCells,
       firstSequences,
@@ -34,9 +35,11 @@ export default class GamePlayHandler {
       vPointer
     );
 
+    console.log(28, addedToAccordingSequences);
+
     return {
-      firstSequences,
-      secondSequences
+      firstSequences: addedToAccordingSequences.firstSequences,
+      secondSequences: addedToAccordingSequences.secondSequences
     };
   }
 
@@ -99,10 +102,23 @@ export default class GamePlayHandler {
         entries.forEach(element => {
           firstSequences[element].add(`${hPointer},${vPointer}`);
         });
+        if (entries.length > 1) {
+          firstSequences = this.concatenateSubsequences(
+            firstSequences,
+            entries
+          );
+        }
       } else {
         entries.forEach(element => {
           secondSequences[element].add(`${hPointer},${vPointer}`);
         });
+
+        if (entries.length > 1) {
+          secondSequences = this.concatenateSubsequences(
+            secondSequences,
+            entries
+          );
+        }
       }
     }
 
@@ -110,6 +126,34 @@ export default class GamePlayHandler {
     console.log("INDEX OF SUBSEQUENCE", entries);
     console.log("SEQUENCE 1 ", firstSequences);
     console.log("SEQUENCE 2 ", secondSequences);
+
+    return { firstSequences, secondSequences };
+  }
+
+  concatenateSubsequences(sequence: any[], entries: number[]): any[] {
+    let temporarySet = new Set();
+    let newSequences = [];
+
+    //concat  subsequences with crossing cells in one
+    entries.forEach((element: number) => {
+      let subSequence = sequence[element];
+      console.log("########### ", subSequence);
+      for (const item of subSequence) {
+        console.log(131, item);
+        temporarySet.add(item);
+      }
+    });
+
+    newSequences.push(temporarySet);
+    //add other subsequence to array
+    sequence.forEach((element: any, index: number) => {
+      if (entries.indexOf(index) === -1) {
+        newSequences.push(element);
+      }
+    });
+
+    console.log("AFTER CONCATINATION ", newSequences);
+    return newSequences;
   }
 
   iterateSequence(sequences: any[], cellPointer: string) {
@@ -163,7 +207,7 @@ export default class GamePlayHandler {
 
   calculateFinishGame(foundation: number, takenAmount: number): boolean {
     this.amountOfCells = foundation * foundation;
-    console.log(15, this.amountOfCells - takenAmount);
+    // console.log(15, this.amountOfCells - takenAmount);
     return this.amountOfCells - takenAmount > 0 ? true : false;
   }
 

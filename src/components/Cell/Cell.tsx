@@ -105,6 +105,8 @@ class Cell extends React.Component<
           this.props.secondPlayerSequences
         );
 
+        // console.log("$$$$$$$$$$$$$$$$", sequences);
+
         this.props.fillUpSequences(
           sequences.firstSequences,
           sequences.secondSequences
