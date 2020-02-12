@@ -5,7 +5,7 @@ const initialState: IMatrix = {
   firstPlayerSequences: [], //save a map for every subSequences
   secondPlayerSequences: [],
   takenAmountOfCells: 1,
-  isGameFinished: false,
+  isGameFinished: false
 };
 
 export default function matrixStore(state = initialState, action: any) {
@@ -36,7 +36,7 @@ export default function matrixStore(state = initialState, action: any) {
       };
     case "GAME_OVER":
       return {
-        isGameFinished: !state.isGameFinished
+        isGameFinished: true
       };
 
     default:
