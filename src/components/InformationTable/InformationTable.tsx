@@ -1,15 +1,8 @@
 import React from "react";
 import { connect } from "react-redux";
+import { IInformationTableProps } from "../../interfaces/InformationTable";
 
-class InformationTable extends React.Component<
-  {
-    isFirstPlayerTurn: boolean;
-    firstPlayerSequencesLength: number;
-    secondPlayerSequencesLength: number;
-    isGameFinished:boolean;
-  },
-  {}
-> {
+class InformationTable extends React.Component<IInformationTableProps, {}> {
   render() {
     return (
       <div>
@@ -26,7 +19,7 @@ function mapStateToProps(state: any) {
     isFirstPlayerTurn: state.turnStore.isFirstPlayerTurn,
     isGameFinished: state.matrixStore.isGameFinished,
     firstPlayerSequencesLength: state.sequenceStore.firstPlayerSequencesLength,
-    secondPlayerSequencesLength: state.sequenceStore.secondPlayerSequencesLength,
+    secondPlayerSequencesLength: state.sequenceStore.secondPlayerSequencesLength
   };
 }
 

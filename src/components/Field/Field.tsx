@@ -2,8 +2,9 @@ import React from "react";
 import { connect } from "react-redux";
 import Cell from "../Cell/Cell";
 import "./Field.css";
+import { IFieldProps } from "../../interfaces/Field";
 
-class Field extends React.Component<{ foundation: number; matrix: any }, {}> {
+class Field extends React.Component<IFieldProps, {}> {
   generateField() {
     let field = [];
     for (var i = 0; i < this.props.foundation; i++) {

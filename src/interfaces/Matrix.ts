@@ -1,9 +1,4 @@
-export interface ICell {
-  hPointer: number;
-  vPointer: number;
-  isCellTaken: boolean;
-  takenBy: number;
-}
+import { ICell } from "../interfaces/Cell";
 
 export interface IMatrix {
   matrix: Array<Array<ICell>>;

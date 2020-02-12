@@ -1,4 +1,4 @@
-import { ICell } from "../interfaces/Matrix";
+import { ICell } from "../interfaces/Cell";
 
 export default class GamePlayHandler {
   amountOfCells: number = 0;
