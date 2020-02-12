@@ -1,42 +1,35 @@
 import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
 import InputLabel from "@material-ui/core/InputLabel";
 import MenuItem from "@material-ui/core/MenuItem";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
 import Button from "@material-ui/core/Button";
 import { connect } from "react-redux";
-import { Dispatch } from "redux";
 import Field from "../Field/Field";
 import { IFoundation } from "../../interfaces/Foundation";
 import InformationTable from "../InformationTable/InformationTable";
 import GamePlayHandler from "../../services/GamePlayHandler";
 import { ICell } from "../../interfaces/Matrix";
+import {
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  Typography,
+  DialogActions
+} from "@material-ui/core";
 
 interface ISettingState {
   open: boolean;
   isFiledVisible: boolean;
+  isFinishDialogVisible: boolean;
 }
 
 class SettingPage extends React.Component<IFoundation, {}> {
   state: ISettingState = {
     open: false,
-    isFiledVisible: false
+    isFiledVisible: false,
+    isFinishDialogVisible: true
   };
-
-  // //TODO fix with type
-  //  useStyles:any = makeStyles(theme => ({
-  //                button: {
-  //                  display: "block",
-  //                  marginTop: theme.spacing(2)
-  //                },
-  //                formControl: {
-  //                  margin: theme.spacing(1),
-  //                  minWidth: 120
-  //                }
-  //              }));
-
-  //              classes = this.useStyles();
 
   setFoundation(value: number): void {
     this.setState(state => {
@@ -76,11 +69,17 @@ class SettingPage extends React.Component<IFoundation, {}> {
     this.setOpen(true);
   };
 
+  handleCloseDialog = () => {
+    this.setState(state => {
+      return { isFinishDialogVisible: false };
+    });
+    window.location.reload();
+  };
+
   render() {
-    console.log("STORE ", this.props);
     return (
       <div>
-        {/* {!this.state.isFiledVisible ? ( */}
+        {!this.state.isFiledVisible ? (
           <div>
             <div>
               <FormControl>
@@ -116,12 +115,77 @@ class SettingPage extends React.Component<IFoundation, {}> {
               </Button>
             </div>
           </div>
-        {/* ) : ( */}
+        ) : (
           <div>
             <Field />
             <InformationTable />
           </div>
-        {/* )} */}
+        )}
+
+        {this.props.isGameFinished ? (
+          <Dialog
+            disableBackdropClick
+            disableEscapeKeyDown
+            onClose={() => this.handleCloseDialog()}
+            aria-labelledby="customized-dialog-title"
+            open={this.state.isFinishDialogVisible}
+          >
+            <DialogTitle id="customized-dialog-title">
+              <b>Game over</b>
+            </DialogTitle>
+            <DialogContent dividers>
+              {this.props.firstPlayerSequencesLength >
+              this.props.secondPlayerSequencesLength ? (
+                <Typography gutterBottom>
+                  <b>The First Player</b> is a winner. Please take our
+                  congratulations.
+                  <br></br>
+                  Points of the <b>First Player</b>:
+                  <b>{this.props.firstPlayerSequencesLength}</b>
+                  <br></br>
+                  Points of the <b>Second Player</b>:
+                  <b>{this.props.secondPlayerSequencesLength}</b>
+                </Typography>
+              ) : null}
+              {this.props.firstPlayerSequencesLength <
+              this.props.secondPlayerSequencesLength ? (
+                <Typography gutterBottom>
+                  <b>The Second Player</b> is a winner. Please take our
+                  congratulations.
+                  <br></br>
+                  Points of the <b>First Player</b>:
+                  <b>{this.props.firstPlayerSequencesLength}</b>
+                  <br></br>
+                  Points of the <b>Second Player</b>:
+                  <b>{this.props.secondPlayerSequencesLength}</b>
+                </Typography>
+              ) : null}
+
+              {this.props.firstPlayerSequencesLength ===
+              this.props.secondPlayerSequencesLength ? (
+                <Typography gutterBottom>
+                  <b>The First Player</b> and <b>The Second Player</b> are
+                  winners. Please take our congratulations.
+                  <br></br>
+                  Points of the <b>First Player</b>:
+                  <b>{this.props.firstPlayerSequencesLength}</b>
+                  <br></br>
+                  Points of the <b>Second Player</b>:
+                  <b>{this.props.secondPlayerSequencesLength}</b>
+                </Typography>
+              ) : null}
+            </DialogContent>
+            <DialogActions>
+              <Button
+                autoFocus
+                onClick={() => this.handleCloseDialog()}
+                color="primary"
+              >
+                <b>Play again</b>
+              </Button>
+            </DialogActions>
+          </Dialog>
+        ) : null}
       </div>
     );
   }
@@ -130,7 +194,10 @@ class SettingPage extends React.Component<IFoundation, {}> {
 function mapStateToProps(state: any) {
   return {
     foundation: state.foundationStore.foundation,
-    matrix: state.matrixStore.matrix
+    matrix: state.matrixStore.matrix,
+    isGameFinished: state.matrixStore.isGameFinished,
+    firstPlayerSequencesLength: state.sequenceStore.firstPlayerSequencesLength,
+    secondPlayerSequencesLength: state.sequenceStore.secondPlayerSequencesLength
   };
 }
 

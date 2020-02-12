@@ -4,6 +4,9 @@ import { connect } from "react-redux";
 class InformationTable extends React.Component<
   {
     isFirstPlayerTurn: boolean;
+    firstPlayerSequencesLength: number;
+    secondPlayerSequencesLength: number;
+    isGameFinished:boolean;
   },
   {}
 > {
@@ -11,8 +14,8 @@ class InformationTable extends React.Component<
     return (
       <div>
         <div>Turn: {this.props.isFirstPlayerTurn ? "Player1" : "Player2"}</div>
-        <div>Player1: NaN</div>
-        <div>Player2: NaN</div>
+        <div>Player1: {this.props.firstPlayerSequencesLength}</div>
+        <div>Player2: {this.props.secondPlayerSequencesLength}</div>
       </div>
     );
   }
@@ -20,7 +23,10 @@ class InformationTable extends React.Component<
 
 function mapStateToProps(state: any) {
   return {
-    isFirstPlayerTurn: state.turnStore.isFirstPlayerTurn
+    isFirstPlayerTurn: state.turnStore.isFirstPlayerTurn,
+    isGameFinished: state.matrixStore.isGameFinished,
+    firstPlayerSequencesLength: state.sequenceStore.firstPlayerSequencesLength,
+    secondPlayerSequencesLength: state.sequenceStore.secondPlayerSequencesLength,
   };
 }
 

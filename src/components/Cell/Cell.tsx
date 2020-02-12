@@ -21,6 +21,7 @@ class Cell extends React.Component<
     isGameFinished: boolean;
     gameOver: any;
     fillUpSequences: any;
+    setSequencesLength: any;
   },
   {
     isHovered: boolean;
@@ -43,6 +44,7 @@ class Cell extends React.Component<
     isGameFinished: boolean;
     gameOver: any;
     fillUpSequences: any;
+    setSequencesLength: any;
   }) {
     super(props);
     this.handleMouseEnter = this.handleMouseEnter.bind(this);
@@ -80,7 +82,6 @@ class Cell extends React.Component<
   handleClick(): void {
     const GamePlayInstance = new GamePlayHandler();
 
-
     if (!this.props.isGameFinished) {
       const updatedMatrix = GamePlayInstance.takeCell(
         this.props.matrix,
@@ -91,9 +92,9 @@ class Cell extends React.Component<
 
       if (!this.state.isButtonClicked) {
         this.props.takeCell({
-          matrix: updatedMatrix,
-          firstPlayerSequences: [],
-          secondPlayerSequences: []
+          matrix: updatedMatrix
+          // firstPlayerSequences: [],
+          // secondPlayerSequences: []
         });
 
         const sequences = GamePlayInstance.calculateSequences(
@@ -115,22 +116,28 @@ class Cell extends React.Component<
             isButtonClicked: true
           };
         });
+
+        const sequencesLengths = GamePlayInstance.calculateWinner(
+          sequences.firstSequences,
+          sequences.secondSequences
+        );
+        this.props.setSequencesLength(
+          sequencesLengths.firstLongestGroup,
+          sequencesLengths.secondLongestGroup
+        );
         this.props.switchTurn();
-      }
 
-      console.log(68, this.props);
-
-      if (
-        !GamePlayInstance.calculateFinishGame(
-          this.props.foundation,
-          this.props.takenAmountOfCells
-        )
-      ) {
-        this.props.gameOver();
-        console.log("GAME OVER");
+        if (
+          !GamePlayInstance.calculateFinishGame(
+            this.props.foundation,
+            this.props.takenAmountOfCells
+          )
+        ) {
+          this.props.gameOver();
+        }
       }
     } else {
-      console.log("GAME OVER");
+      this.props.gameOver();
     }
   }
 
@@ -167,9 +174,9 @@ function mapDispatchToProps(dispatch: any) {
     takeCell: (actionObj: any) =>
       dispatch({
         type: "TAKE_A_CELL",
-        matrix: actionObj.matrix,
-        firstPlayerSequences: actionObj.firstPlayerSequences,
-        secondPlayerSequences: actionObj.secondPlayerSequences
+        matrix: actionObj.matrix
+        // firstPlayerSequences: actionObj.firstPlayerSequences,
+        // secondPlayerSequences: actionObj.secondPlayerSequences
       }),
     gameOver: () => dispatch({ type: "GAME_OVER" }),
     fillUpSequences: (firstPlayerSequences: [], secondPlayerSequences: []) =>
@@ -177,6 +184,15 @@ function mapDispatchToProps(dispatch: any) {
         type: "FILL_UP_SEQUENCES",
         firstPlayerSequences,
         secondPlayerSequences
+      }),
+    setSequencesLength: (
+      firstPlayerSequencesLength: number,
+      secondPlayerSequencesLength: number
+    ) =>
+      dispatch({
+        type: "UPDATE_SEQUENCES",
+        firstPlayerSequencesLength,
+        secondPlayerSequencesLength
       })
   };
 }
