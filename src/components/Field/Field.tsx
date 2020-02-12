@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import Cell from "../Cell/Cell";
 import "./Field.css";
 
-class Field extends React.Component<{ foundation: number; matrix:any }, {}> {
+class Field extends React.Component<{ foundation: number; matrix: any }, {}> {
   generateField() {
     let field = [];
     for (var i = 0; i < this.props.foundation; i++) {
@@ -22,7 +22,6 @@ class Field extends React.Component<{ foundation: number; matrix:any }, {}> {
   }
 
   render() {
-    console.log("STORE ", this.props);
     return <div className="Field">{this.generateField()}</div>;
   }
 }
@@ -30,7 +29,7 @@ class Field extends React.Component<{ foundation: number; matrix:any }, {}> {
 function mapStateToProps(state: any) {
   return {
     foundation: state.foundationStore.foundation,
-    matrix: state.matrixStore.matrix,
+    matrix: state.matrixStore.matrix
   };
 }
 

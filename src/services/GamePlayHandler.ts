@@ -10,9 +10,6 @@ export default class GamePlayHandler {
     let firstLongestGroup: number = 0;
     let secondLongestGroup: number = 0;
 
-    // console.log("$$$$$$$$$$ ", firstSequences[0].size);
-    // console.log("%%%%%%%%%% ", secondSequences[0].size);
-
     firstSequences.forEach(element => {
       if (element.size > firstLongestGroup) {
         firstLongestGroup = element.size;
@@ -40,7 +37,6 @@ export default class GamePlayHandler {
     let secondSequences = secondPlayerSequences;
 
     const nearByCells = this.findNearbyCells(matrix, hPointer, vPointer);
-    // console.log("Nearby cells", nearByCells);
 
     let addedToAccordingSequences = this.addCellToAccordingSequences(
       isFirstPlayer,
@@ -50,8 +46,6 @@ export default class GamePlayHandler {
       hPointer,
       vPointer
     );
-
-    console.log(28, addedToAccordingSequences);
 
     return {
       firstSequences: addedToAccordingSequences.firstSequences,
@@ -99,7 +93,6 @@ export default class GamePlayHandler {
     }
 
     if (amountEmptyEntries === 4) {
-      console.log("Is new group", amountEmptyEntries);
       if (isFirstPlayer) {
         firstSequences = this.addNewSequence(
           firstSequences,
@@ -138,10 +131,9 @@ export default class GamePlayHandler {
       }
     }
 
-    // TODO handle situation when nearby cells have a lot of entries in different subsequent
-    console.log("INDEX OF SUBSEQUENCE", entries);
-    console.log("SEQUENCE 1 ", firstSequences);
-    console.log("SEQUENCE 2 ", secondSequences);
+    // console.log("INDEX OF SUBSEQUENCE", entries);
+    // console.log("SEQUENCE 1 ", firstSequences);
+    // console.log("SEQUENCE 2 ", secondSequences);
 
     return { firstSequences, secondSequences };
   }
@@ -153,9 +145,7 @@ export default class GamePlayHandler {
     //concat  subsequences with crossing cells in one
     entries.forEach((element: number) => {
       let subSequence = sequence[element];
-      console.log("########### ", subSequence);
       for (const item of subSequence) {
-        console.log(131, item);
         temporarySet.add(item);
       }
     });
@@ -168,7 +158,6 @@ export default class GamePlayHandler {
       }
     });
 
-    console.log("AFTER CONCATINATION ", newSequences);
     return newSequences;
   }
 
@@ -223,7 +212,6 @@ export default class GamePlayHandler {
 
   calculateFinishGame(foundation: number, takenAmount: number): boolean {
     this.amountOfCells = foundation * foundation;
-    // console.log(15, this.amountOfCells - takenAmount);
     return this.amountOfCells - takenAmount > 0 ? true : false;
   }
 
