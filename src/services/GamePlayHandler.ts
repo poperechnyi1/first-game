@@ -4,12 +4,28 @@ export default class GamePlayHandler {
   amountOfCells: number = 0;
 
   calculateWinner(
-    matrix: Array<Array<ICell>>,
-    isFirstPlayer: boolean,
-    hPointer: number,
-    vPointer: number
-  ): boolean {
-    return true;
+    firstSequences: any[],
+    secondSequences: any[]
+  ): { firstLongestGroup: number; secondLongestGroup: number } {
+    let firstLongestGroup: number = 0;
+    let secondLongestGroup: number = 0;
+
+    // console.log("$$$$$$$$$$ ", firstSequences[0].size);
+    // console.log("%%%%%%%%%% ", secondSequences[0].size);
+
+    firstSequences.forEach(element => {
+      if (element.size > firstLongestGroup) {
+        firstLongestGroup = element.size;
+      }
+    });
+
+    secondSequences.forEach(element => {
+      if (element.size > secondLongestGroup) {
+        secondLongestGroup = element.size;
+      }
+    });
+
+    return { firstLongestGroup, secondLongestGroup };
   }
 
   calculateSequences(
@@ -220,7 +236,7 @@ export default class GamePlayHandler {
     if (!matrix[hPointer][vPointer].isCellTaken) {
       matrix[hPointer][vPointer].isCellTaken = true;
       matrix[hPointer][vPointer].takenBy = isFirstPlayer ? 1 : 2;
-      this.calculateWinner(matrix, isFirstPlayer, hPointer, vPointer);
+      // this.calculateWinner(matrix, isFirstPlayer, hPointer, vPointer);
     }
 
     return matrix;

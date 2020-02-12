@@ -80,7 +80,7 @@ class SettingPage extends React.Component<IFoundation, {}> {
     console.log("STORE ", this.props);
     return (
       <div>
-        {/* {!this.state.isFiledVisible ? ( */}
+        {!this.state.isFiledVisible ? (
           <div>
             <div>
               <FormControl>
@@ -116,12 +116,12 @@ class SettingPage extends React.Component<IFoundation, {}> {
               </Button>
             </div>
           </div>
-        {/* ) : ( */}
+        ) : (
           <div>
             <Field />
             <InformationTable />
           </div>
-        {/* )} */}
+        )}
       </div>
     );
   }

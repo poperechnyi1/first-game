@@ -21,6 +21,7 @@ class Cell extends React.Component<
     isGameFinished: boolean;
     gameOver: any;
     fillUpSequences: any;
+    setSequencesLength: any;
   },
   {
     isHovered: boolean;
@@ -43,6 +44,7 @@ class Cell extends React.Component<
     isGameFinished: boolean;
     gameOver: any;
     fillUpSequences: any;
+    setSequencesLength:any;
   }) {
     super(props);
     this.handleMouseEnter = this.handleMouseEnter.bind(this);
@@ -80,7 +82,6 @@ class Cell extends React.Component<
   handleClick(): void {
     const GamePlayInstance = new GamePlayHandler();
 
-
     if (!this.props.isGameFinished) {
       const updatedMatrix = GamePlayInstance.takeCell(
         this.props.matrix,
@@ -105,7 +106,7 @@ class Cell extends React.Component<
           this.props.secondPlayerSequences
         );
 
-        // console.log("$$$$$$$$$$$$$$$$", sequences);
+        console.log("$$$$$$$$$$$$$$$$", sequences);
 
         this.props.fillUpSequences(
           sequences.firstSequences,
@@ -117,6 +118,15 @@ class Cell extends React.Component<
             isButtonClicked: true
           };
         });
+
+        const sequencesLengths = GamePlayInstance.calculateWinner(
+          sequences.firstSequences,
+          sequences.secondSequences
+        );
+        this.props.setSequencesLength(
+          sequencesLengths.firstLongestGroup,
+          sequencesLengths.secondLongestGroup
+        );
         this.props.switchTurn();
       }
 
@@ -131,6 +141,7 @@ class Cell extends React.Component<
         this.props.gameOver();
         console.log("GAME OVER");
       }
+
     } else {
       console.log("GAME OVER");
     }
@@ -179,6 +190,15 @@ function mapDispatchToProps(dispatch: any) {
         type: "FILL_UP_SEQUENCES",
         firstPlayerSequences,
         secondPlayerSequences
+      }),
+    setSequencesLength: (
+      firstPlayerSequencesLength: number,
+      secondPlayerSequencesLength: number
+    ) =>
+      dispatch({
+        type: "UPDATE_SEQUENCES",
+        firstPlayerSequencesLength,
+        secondPlayerSequencesLength
       })
   };
 }
