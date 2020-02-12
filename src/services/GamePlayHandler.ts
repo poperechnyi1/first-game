@@ -20,31 +20,19 @@ export default class GamePlayHandler {
     firstPlayerSequences: any[], //TODO fix any
     secondPlayerSequences: any[] //TODO fix any
   ) {
-    let sequenceSet = new Set<string>();
     let firstSequences = firstPlayerSequences;
     let secondSequences = secondPlayerSequences;
 
-    if (isFirstPlayer && firstSequences.length === 0) {
-      sequenceSet.add(`${hPointer},${vPointer}`);
-      firstSequences.push(sequenceSet);
-    } else if (!isFirstPlayer && secondSequences.length === 0) {
-      sequenceSet.add(`${hPointer},${vPointer}`);
-      secondSequences.push(sequenceSet);
-    }
-
-    if (firstSequences.length > 0 && secondSequences.length > 0) {
-      console.log("####################");
-      const nearByCells = this.findNearbyCells(matrix, hPointer, vPointer);
-      console.log("Nearby cells", nearByCells);
-      this.addCellToAccordingSequences(
-        isFirstPlayer,
-        nearByCells,
-        firstSequences,
-        secondSequences,
-        hPointer,
-        vPointer
-      );
-    }
+    const nearByCells = this.findNearbyCells(matrix, hPointer, vPointer);
+    console.log("Nearby cells", nearByCells);
+    this.addCellToAccordingSequences(
+      isFirstPlayer,
+      nearByCells,
+      firstSequences,
+      secondSequences,
+      hPointer,
+      vPointer
+    );
 
     return {
       firstSequences,
@@ -61,30 +49,64 @@ export default class GamePlayHandler {
     vPointer: number
   ) {
     let entries: number[] = [];
+
+    let amountEmptyEntries: number = 0;
     for (const item in nearByCells) {
+      let temporaryEntries: number[] = [];
       if (nearByCells[item] && isFirstPlayer) {
-        entries = this.iterateSequence(
+        temporaryEntries = this.iterateSequence(
           firstSequences,
           `${nearByCells[item].hPointer},${nearByCells[item].vPointer}`
         );
+
+        if (temporaryEntries.length > 0) {
+          temporaryEntries.forEach((element: number) => entries.push(element));
+        }
       }
 
       if (nearByCells[item] && !isFirstPlayer) {
-        entries = this.iterateSequence(
+        temporaryEntries = this.iterateSequence(
           secondSequences,
           `${nearByCells[item].hPointer},${nearByCells[item].vPointer}`
         );
+
+        if (temporaryEntries.length > 0) {
+          temporaryEntries.forEach((element: number) => entries.push(element));
+        }
+      }
+      if (entries.length === 0) {
+        amountEmptyEntries++;
       }
     }
 
-    //TODO handle situation when nearby cells have a lot of entries in different subsequent
-    if (firstSequences[entries[0]] && isFirstPlayer) {
-      firstSequences[0].add(`${hPointer},${vPointer}`);
+    if (amountEmptyEntries === 4) {
+      console.log("Is new group", amountEmptyEntries);
+      if (isFirstPlayer) {
+        firstSequences = this.addNewSequence(
+          firstSequences,
+          hPointer,
+          vPointer
+        );
+      } else {
+        secondSequences = this.addNewSequence(
+          secondSequences,
+          hPointer,
+          vPointer
+        );
+      }
+    } else {
+      if (isFirstPlayer) {
+        entries.forEach(element => {
+          firstSequences[element].add(`${hPointer},${vPointer}`);
+        });
+      } else {
+        entries.forEach(element => {
+          secondSequences[element].add(`${hPointer},${vPointer}`);
+        });
+      }
     }
 
-    if (secondSequences[entries[0]] && !isFirstPlayer) {
-      secondSequences[0].add(`${hPointer},${vPointer}`);
-    }
+    // TODO handle situation when nearby cells have a lot of entries in different subsequent
     console.log("INDEX OF SUBSEQUENCE", entries);
     console.log("SEQUENCE 1 ", firstSequences);
     console.log("SEQUENCE 2 ", secondSequences);
@@ -99,6 +121,14 @@ export default class GamePlayHandler {
     });
 
     return indexes;
+  }
+
+  addNewSequence(sequence: any[], hPointer: number, vPointer: number): any[] {
+    let sequenceElement = new Set<string>();
+    sequenceElement.add(`${hPointer},${vPointer}`);
+    sequence.push(sequenceElement);
+
+    return sequence;
   }
 
   findNearbyCells(
