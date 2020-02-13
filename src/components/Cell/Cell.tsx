@@ -2,50 +2,11 @@ import React from "react";
 import Button from "@material-ui/core/Button";
 import "./Cell.css";
 import { connect } from "react-redux";
-import { ITurnStore } from "../../interfaces/Turn";
 import GamePlayHandler from "../../services/GamePlayHandler";
-import { ICell } from "../../interfaces/Matrix";
+import { ICellProps, ICellState } from "../../interfaces/Cell";
 
-class Cell extends React.Component<
-  {
-    vPointer: number;
-    hPointer: number;
-    isFirstPlayerTurn: boolean;
-    switchTurn: any;
-    matrix: Array<Array<ICell>>;
-    foundation: number;
-    takenAmountOfCells: number;
-    firstPlayerSequences: []; //TODO add types
-    secondPlayerSequences: []; //TODO add types
-    takeCell: any;
-    isGameFinished: boolean;
-    gameOver: any;
-    fillUpSequences: any;
-    setSequencesLength: any;
-  },
-  {
-    isHovered: boolean;
-    buttonClass: string;
-    isButtonClicked: boolean;
-    playerClicked: number;
-  }
-> {
-  constructor(props: {
-    vPointer: number;
-    hPointer: number;
-    isFirstPlayerTurn: boolean;
-    switchTurn: any;
-    matrix: Array<Array<ICell>>;
-    foundation: number;
-    takenAmountOfCells: number;
-    firstPlayerSequences: []; //TODO add types
-    secondPlayerSequences: []; //TODO add types
-    takeCell: any;
-    isGameFinished: boolean;
-    gameOver: any;
-    fillUpSequences: any;
-    setSequencesLength: any;
-  }) {
+class Cell extends React.Component<ICellProps, ICellState> {
+  constructor(props: ICellProps) {
     super(props);
     this.handleMouseEnter = this.handleMouseEnter.bind(this);
     this.handleMouseLeave = this.handleMouseLeave.bind(this);
@@ -93,8 +54,6 @@ class Cell extends React.Component<
       if (!this.state.isButtonClicked) {
         this.props.takeCell({
           matrix: updatedMatrix
-          // firstPlayerSequences: [],
-          // secondPlayerSequences: []
         });
 
         const sequences = GamePlayInstance.calculateSequences(

@@ -9,7 +9,7 @@ import Field from "../Field/Field";
 import { IFoundation } from "../../interfaces/Foundation";
 import InformationTable from "../InformationTable/InformationTable";
 import GamePlayHandler from "../../services/GamePlayHandler";
-import { ICell } from "../../interfaces/Matrix";
+import { ICell } from "../../interfaces/Cell";
 import {
   Dialog,
   DialogTitle,
@@ -17,12 +17,7 @@ import {
   Typography,
   DialogActions
 } from "@material-ui/core";
-
-interface ISettingState {
-  open: boolean;
-  isFiledVisible: boolean;
-  isFinishDialogVisible: boolean;
-}
+import { ISettingState } from "../../interfaces/SettingsPage";
 
 class SettingPage extends React.Component<IFoundation, {}> {
   state: ISettingState = {

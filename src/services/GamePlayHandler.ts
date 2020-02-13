@@ -1,12 +1,17 @@
-import { ICell } from "../interfaces/Matrix";
+import { ICell } from "../interfaces/Cell";
+import {
+  ILengthsOfGroups,
+  ISequencesForPlayers,
+  INearByCells
+} from "../interfaces/GamePlayHandler";
 
 export default class GamePlayHandler {
   amountOfCells: number = 0;
 
   calculateWinner(
-    firstSequences: any[],
-    secondSequences: any[]
-  ): { firstLongestGroup: number; secondLongestGroup: number } {
+    firstSequences: Array<Set<string>>,
+    secondSequences: Array<Set<string>>
+  ): ILengthsOfGroups {
     let firstLongestGroup: number = 0;
     let secondLongestGroup: number = 0;
 
@@ -30,9 +35,9 @@ export default class GamePlayHandler {
     isFirstPlayer: boolean,
     hPointer: number,
     vPointer: number,
-    firstPlayerSequences: any[], //TODO fix any
-    secondPlayerSequences: any[] //TODO fix any
-  ) {
+    firstPlayerSequences: Array<Set<string>>,
+    secondPlayerSequences: Array<Set<string>>
+  ): ISequencesForPlayers {
     let firstSequences = firstPlayerSequences;
     let secondSequences = secondPlayerSequences;
 
@@ -55,12 +60,12 @@ export default class GamePlayHandler {
 
   addCellToAccordingSequences(
     isFirstPlayer: boolean,
-    nearByCells: any,
-    firstSequences: any[],
-    secondSequences: any[],
+    nearByCells: any, //TODO fix any
+    firstSequences: Array<Set<string>>,
+    secondSequences: Array<Set<string>>,
     hPointer: number,
     vPointer: number
-  ) {
+  ): ISequencesForPlayers {
     let entries: number[] = [];
 
     let amountEmptyEntries: number = 0;
@@ -138,21 +143,25 @@ export default class GamePlayHandler {
     return { firstSequences, secondSequences };
   }
 
-  concatenateSubsequences(sequence: any[], entries: number[]): any[] {
-    let temporarySet = new Set();
+  //TODO remove any
+  concatenateSubsequences(
+    sequence: Array<Set<string>>,
+    entries: number[]
+  ): Array<Set<string>> {
+    let temporarySet = new Set<string>();
     let newSequences = [];
 
     //concat  subsequences with crossing cells in one
     entries.forEach((element: number) => {
-      let subSequence = sequence[element];
-      for (const item of subSequence) {
+      let subSequence: Set<string> = sequence[element];
+      subSequence.forEach(item => {
         temporarySet.add(item);
-      }
+      });
     });
 
     newSequences.push(temporarySet);
     //add other subsequence to array
-    sequence.forEach((element: any, index: number) => {
+    sequence.forEach((element: Set<string>, index: number) => {
       if (entries.indexOf(index) === -1) {
         newSequences.push(element);
       }
@@ -161,7 +170,10 @@ export default class GamePlayHandler {
     return newSequences;
   }
 
-  iterateSequence(sequences: any[], cellPointer: string) {
+  iterateSequence(
+    sequences: Array<Set<string>>,
+    cellPointer: string
+  ): number[] {
     let indexes: number[] = [];
     sequences.forEach((element, index) => {
       if (element.has(cellPointer)) {
@@ -172,7 +184,11 @@ export default class GamePlayHandler {
     return indexes;
   }
 
-  addNewSequence(sequence: any[], hPointer: number, vPointer: number): any[] {
+  addNewSequence(
+    sequence: any[],
+    hPointer: number,
+    vPointer: number
+  ): Array<Set<string>> {
     let sequenceElement = new Set<string>();
     sequenceElement.add(`${hPointer},${vPointer}`);
     sequence.push(sequenceElement);
@@ -184,8 +200,7 @@ export default class GamePlayHandler {
     matrix: Array<Array<ICell>>,
     hPointer: number,
     vPointer: number
-    // isFirstPlayer: boolean
-  ) {
+  ): INearByCells {
     let cellLeft = null;
     let cellRight = null;
     let cellBottom = null;
@@ -224,7 +239,6 @@ export default class GamePlayHandler {
     if (!matrix[hPointer][vPointer].isCellTaken) {
       matrix[hPointer][vPointer].isCellTaken = true;
       matrix[hPointer][vPointer].takenBy = isFirstPlayer ? 1 : 2;
-      // this.calculateWinner(matrix, isFirstPlayer, hPointer, vPointer);
     }
 
     return matrix;
