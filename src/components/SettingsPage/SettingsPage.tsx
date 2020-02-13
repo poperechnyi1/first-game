@@ -17,12 +17,7 @@ import {
   Typography,
   DialogActions
 } from "@material-ui/core";
-
-interface ISettingState {
-  open: boolean;
-  isFiledVisible: boolean;
-  isFinishDialogVisible: boolean;
-}
+import { ISettingState } from "../../interfaces/SettingsPage";
 
 class SettingPage extends React.Component<IFoundation, {}> {
   state: ISettingState = {

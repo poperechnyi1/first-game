@@ -54,8 +54,6 @@ class Cell extends React.Component<ICellProps, ICellState> {
       if (!this.state.isButtonClicked) {
         this.props.takeCell({
           matrix: updatedMatrix
-          // firstPlayerSequences: [],
-          // secondPlayerSequences: []
         });
 
         const sequences = GamePlayInstance.calculateSequences(
