@@ -1,4 +1,4 @@
-export interface IFieldProps {
+export type FieldProps = {
   foundation: number;
   matrix: any;
-}
+};

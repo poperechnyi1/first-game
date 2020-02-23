@@ -3,10 +3,10 @@ import Button from "@material-ui/core/Button";
 import "./Cell.css";
 import { connect } from "react-redux";
 import GamePlayHandler from "../../services/GamePlayHandler";
-import { ICellProps, ICellState } from "../../interfaces/Cell";
+import { CellProps, CellState } from "../../interfaces/Cell";
 
-class Cell extends React.Component<ICellProps, ICellState> {
-  constructor(props: ICellProps) {
+class Cell extends React.Component<CellProps, CellState> {
+  constructor(props: CellProps) {
     super(props);
     this.handleMouseEnter = this.handleMouseEnter.bind(this);
     this.handleMouseLeave = this.handleMouseLeave.bind(this);
