@@ -1,7 +1,7 @@
-import { ICell } from "../interfaces/Cell";
+import { Cell } from "../interfaces/Cell";
 
 export interface IMatrix {
-  matrix: Array<Array<ICell>>;
+  matrix: Array<Array<Cell>>;
   firstPlayerSequences: Array<any>; //TODO fix any
   secondPlayerSequences: Array<any>;
   takenAmountOfCells: number;

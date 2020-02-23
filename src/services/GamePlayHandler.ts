@@ -1,4 +1,4 @@
-import { ICell } from "../interfaces/Cell";
+import { Cell } from "../interfaces/Cell";
 import {
   ILengthsOfGroups,
   ISequencesForPlayers,
@@ -31,7 +31,7 @@ export default class GamePlayHandler {
   }
 
   calculateSequences(
-    matrix: Array<Array<ICell>>,
+    matrix: Array<Array<Cell>>,
     isFirstPlayer: boolean,
     hPointer: number,
     vPointer: number,
@@ -136,10 +136,6 @@ export default class GamePlayHandler {
       }
     }
 
-    // console.log("INDEX OF SUBSEQUENCE", entries);
-    // console.log("SEQUENCE 1 ", firstSequences);
-    // console.log("SEQUENCE 2 ", secondSequences);
-
     return { firstSequences, secondSequences };
   }
 
@@ -197,7 +193,7 @@ export default class GamePlayHandler {
   }
 
   findNearbyCells(
-    matrix: Array<Array<ICell>>,
+    matrix: Array<Array<Cell>>,
     hPointer: number,
     vPointer: number
   ): INearByCells {
@@ -231,11 +227,11 @@ export default class GamePlayHandler {
   }
 
   takeCell(
-    matrix: Array<Array<ICell>>,
+    matrix: Array<Array<Cell>>,
     isFirstPlayer: boolean,
     hPointer: number,
     vPointer: number
-  ): Array<Array<ICell>> {
+  ): Array<Array<Cell>> {
     if (!matrix[hPointer][vPointer].isCellTaken) {
       matrix[hPointer][vPointer].isCellTaken = true;
       matrix[hPointer][vPointer].takenBy = isFirstPlayer ? 1 : 2;
@@ -244,8 +240,8 @@ export default class GamePlayHandler {
     return matrix;
   }
 
-  generateMatrix(foundation: number): Array<Array<ICell>> {
-    const matrix: Array<Array<ICell>> = [];
+  generateMatrix(foundation: number): Array<Array<Cell>> {
+    const matrix: Array<Array<Cell>> = [];
     for (var i = 0; i < foundation; i++) {
       matrix.push([]);
       for (var j = 0; j < foundation; j++) {

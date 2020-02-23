@@ -1,4 +1,4 @@
-import { ICell } from "./Cell";
+import { Cell } from "./Cell";
 
 export interface ILengthsOfGroups {
   firstLongestGroup: number;
@@ -11,8 +11,8 @@ export interface ISequencesForPlayers {
 }
 
 export interface INearByCells {
-  cellLeft: ICell | null;
-  cellRight: ICell | null;
-  cellBottom: ICell | null;
-  cellTop: ICell | null;
+  cellLeft: Cell | null;
+  cellRight: Cell | null;
+  cellBottom: Cell | null;
+  cellTop: Cell | null;
 }

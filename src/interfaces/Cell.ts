@@ -1,9 +1,9 @@
-export interface ICellProps {
+export type CellProps = {
   vPointer: number;
   hPointer: number;
   isFirstPlayerTurn: boolean;
   switchTurn: any;
-  matrix: Array<Array<ICell>>;
+  matrix: Array<Array<Cell>>;
   foundation: number;
   takenAmountOfCells: number;
   firstPlayerSequences: []; //TODO add types
@@ -13,18 +13,18 @@ export interface ICellProps {
   gameOver: any;
   fillUpSequences: any;
   setSequencesLength: any;
-}
+};
 
-export interface ICell {
+export type Cell = {
   hPointer: number;
   vPointer: number;
   isCellTaken: boolean;
   takenBy: number;
-}
+};
 
-export interface ICellState {
+export type CellState = {
   isHovered: boolean;
   buttonClass: string;
   isButtonClicked: boolean;
   playerClicked: number;
-}
+};

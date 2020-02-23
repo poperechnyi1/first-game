@@ -9,7 +9,7 @@ import Field from "../Field/Field";
 import { IFoundation } from "../../interfaces/Foundation";
 import InformationTable from "../InformationTable/InformationTable";
 import GamePlayHandler from "../../services/GamePlayHandler";
-import { ICell } from "../../interfaces/Cell";
+import { Cell } from "../../interfaces/Cell";
 import {
   Dialog,
   DialogTitle,
@@ -200,7 +200,7 @@ function mapDispatchToProps(dispatch: any) {
   return {
     onSetFoundation: (foundation: number) =>
       dispatch({ type: "SET_FOUNDATION", foundation }),
-    onGenerateField: (matrix: ICell) =>
+    onGenerateField: (matrix: Cell) =>
       dispatch({ type: "GENERATE_FIELD", matrix })
   };
 }
