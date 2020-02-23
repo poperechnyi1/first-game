@@ -2,9 +2,9 @@ import React from "react";
 import { connect } from "react-redux";
 import Cell from "../Cell/Cell";
 import "./Field.css";
-import { IFieldProps } from "../../interfaces/Field";
+import { FieldProps } from "../../interfaces/Field";
 
-class Field extends React.Component<IFieldProps, {}> {
+class Field extends React.Component<FieldProps, {}> {
   generateField() {
     let field = [];
     for (var i = 0; i < this.props.foundation; i++) {
