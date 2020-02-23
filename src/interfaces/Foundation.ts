@@ -1,4 +1,4 @@
-export interface IFoundation {
+export interface Foundation {
   foundation: number;
   onSetFoundation: any;
   onGenerateField: any;

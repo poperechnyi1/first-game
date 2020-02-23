@@ -6,7 +6,7 @@ import Select from "@material-ui/core/Select";
 import Button from "@material-ui/core/Button";
 import { connect } from "react-redux";
 import Field from "../Field/Field";
-import { IFoundation } from "../../interfaces/Foundation";
+import { Foundation } from "../../interfaces/Foundation";
 import InformationTable from "../InformationTable/InformationTable";
 import GamePlayHandler from "../../services/GamePlayHandler";
 import { Cell } from "../../interfaces/Cell";
@@ -19,7 +19,7 @@ import {
 } from "@material-ui/core";
 import { ISettingState } from "../../interfaces/SettingsPage";
 
-class SettingPage extends React.Component<IFoundation, {}> {
+class SettingPage extends React.Component<Foundation, {}> {
   state: ISettingState = {
     open: false,
     isFiledVisible: false,
