@@ -1,8 +1,8 @@
 import React from "react";
 import { connect } from "react-redux";
-import { IInformationTableProps } from "../../interfaces/InformationTable";
+import { InformationTableProps } from "../../interfaces/InformationTable";
 
-class InformationTable extends React.Component<IInformationTableProps, {}> {
+class InformationTable extends React.Component<InformationTableProps, {}> {
   render() {
     return (
       <div>
