@@ -1,11 +1,11 @@
-import { ITurnState } from "../../interfaces/Turn";
+import { ITurnState } from "../../types/Turn";
 
 const initialState: ITurnState = {
   isFirstPlayerTurn: true
 };
 
 export default function turnStore(
-  state = initialState,
+  state: ITurnState = initialState,
   action: any
 ): ITurnState {
   switch (action.type) {

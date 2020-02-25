@@ -1,9 +1,9 @@
-import { Cell } from "../interfaces/Cell";
+import { Cell } from "../types/Cell";
 import {
   ILengthsOfGroups,
   ISequencesForPlayers,
   INearByCells
-} from "../interfaces/GamePlayHandler";
+} from "../types/GamePlayHandler";
 
 export default class GamePlayHandler {
   amountOfCells: number = 0;

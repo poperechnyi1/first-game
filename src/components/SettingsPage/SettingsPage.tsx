@@ -6,10 +6,10 @@ import Select from "@material-ui/core/Select";
 import Button from "@material-ui/core/Button";
 import { connect } from "react-redux";
 import Field from "../Field/Field";
-import { Foundation } from "../../interfaces/Foundation";
+import { Foundation } from "../../types/Foundation";
 import InformationTable from "../InformationTable/InformationTable";
 import GamePlayHandler from "../../services/GamePlayHandler";
-import { Cell } from "../../interfaces/Cell";
+import { Cell } from "../../types/Cell";
 import {
   Dialog,
   DialogTitle,
@@ -17,7 +17,7 @@ import {
   Typography,
   DialogActions
 } from "@material-ui/core";
-import { ISettingState } from "../../interfaces/SettingsPage";
+import { ISettingState } from "../../types/SettingsPage";
 
 class SettingPage extends React.Component<Foundation, {}> {
   state: ISettingState = {

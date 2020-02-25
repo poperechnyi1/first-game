@@ -1,4 +1,4 @@
-import { IMatrix } from "../../interfaces/Matrix";
+import { IMatrix } from "../../types/Matrix";
 
 const initialState: IMatrix = {
   matrix: [],

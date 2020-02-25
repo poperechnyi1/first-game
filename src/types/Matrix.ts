@@ -1,4 +1,4 @@
-import { Cell } from "../interfaces/Cell";
+import { Cell } from "./Cell";
 
 export interface IMatrix {
   matrix: Array<Array<Cell>>;

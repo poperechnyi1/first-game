@@ -2,7 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import Cell from "../Cell/Cell";
 import "./Field.css";
-import { FieldProps } from "../../interfaces/Field";
+import { FieldProps } from "../../types/Field";
 
 class Field extends React.Component<FieldProps, {}> {
   generateField() {

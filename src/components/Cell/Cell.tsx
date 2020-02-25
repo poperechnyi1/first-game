@@ -3,7 +3,7 @@ import Button from "@material-ui/core/Button";
 import "./Cell.css";
 import { connect } from "react-redux";
 import GamePlayHandler from "../../services/GamePlayHandler";
-import { CellProps, CellState } from "../../interfaces/Cell";
+import { CellProps, CellState } from "../../types/Cell";
 
 class Cell extends React.Component<CellProps, CellState> {
   constructor(props: CellProps) {
